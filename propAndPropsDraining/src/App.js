@@ -5,6 +5,8 @@ import "./App.css";
 import Header from "./Header";
 import Content from "./Content";
 import Footer from "./Footer";
+import AddItem from './AddItem';
+import { hasFormSubmit } from '@testing-library/user-event/dist/utils';
 
 
 
@@ -35,6 +37,7 @@ function App() {
   ]);
 
   
+  const [newItem, setNewItem] = useState('')
 
   const handleCheck = (id) => {
     // console.log(`key: ${id}`)
@@ -51,11 +54,24 @@ function App() {
     setItems(listItems)   // we now call it out like this
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(!newItem) return;
+
+    setNewItem('')
+  }
+
 
 
   return (
     <div className="App">
       <Header title = "Welcome to props"/>          
+      <AddItem
+      newItem = {newItem}
+      setNewItem = {setNewItem}
+      handleSubmit = {handleSubmit}
+      />
+      
       <Content 
       items ={items}
       handleCheck = {handleCheck}

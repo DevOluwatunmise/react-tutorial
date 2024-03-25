@@ -1,4 +1,4 @@
-import itemList from "./itemList";
+import ItemList from "./itemList";
 
 import "./content.css";
 
@@ -10,7 +10,7 @@ const Content = ({items, handleCheck, handleDelete}) => {
     <main className="student">
        
       {items.length ? (
-        <itemList 
+        <ItemList 
         items = {items}
         handleCheck = {handleCheck}
         handleDelete = {handleDelete}
