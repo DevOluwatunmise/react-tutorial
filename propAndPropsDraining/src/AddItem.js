@@ -1,5 +1,6 @@
 import React from 'react'
-import {FaPlus} from 'react-icons/Fa6'
+
+import {FaPlus} from 'react-icons/fa6'
 
 const AddItem = ({newItem, setNewItem, handleSubmit}) => {
   return (
@@ -13,7 +14,7 @@ const AddItem = ({newItem, setNewItem, handleSubmit}) => {
         autoFocus
         id='addItem'
         placeholder='addItem'
-        requirednpm 
+        required
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
         />
