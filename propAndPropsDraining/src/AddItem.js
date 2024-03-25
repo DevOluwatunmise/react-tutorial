@@ -13,7 +13,7 @@ const AddItem = ({newItem, setNewItem, handleSubmit}) => {
         autoFocus
         id='addItem'
         placeholder='addItem'
-        required
+        requirednpm 
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
         />
