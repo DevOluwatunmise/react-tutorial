@@ -83,15 +83,17 @@ function App() {
   return (
     <div className="App">
       <Header title = "Welcome to props"/>          
+      
+      <SearchItem
+        search={search}
+        setSearch={setSearch}
+      />
       <AddItem
       newItem = {newItem}
       setNewItem = {setNewItem}
       handleSubmit = {handleSubmit}
       />
-      <SearchItem
-        search={search}
-        setSearch={setSearch}
-      />
+      
       
       <Content 
       items ={items}
