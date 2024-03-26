@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const SearchItem = () => {
   return (
     <form className='searchForm'>
@@ -8,9 +9,10 @@ const SearchItem = () => {
         id='search'
         type='text'
         role='searchbox'
-        placeholder='searchitems'
+        placeholder='search items'
         />
     </form>
+
   )
 }
 

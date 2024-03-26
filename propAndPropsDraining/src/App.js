@@ -6,6 +6,7 @@ import Header from "./Header";
 import Content from "./Content";
 import Footer from "./Footer";
 import AddItem from './AddItem';
+import SearchItem from './SearchItem';
 
 
 
@@ -16,7 +17,8 @@ function App() {
    const [items, setItems] = useState(JSON.parse(localStorage.getItem("shoppinglist")));
   
    const [newItem, setNewItem] = useState('')    // anytime we add new item, setNewItem will set the new value or item to the useState empty string
- 
+  
+   const [search, setSearch] = useState('')
   
    //{
   //     id: 1,
@@ -85,6 +87,10 @@ function App() {
       newItem = {newItem}
       setNewItem = {setNewItem}
       handleSubmit = {handleSubmit}
+      />
+      <SearchItem
+        search={search}
+        setSearch={setSearch}
       />
       
       <Content 
