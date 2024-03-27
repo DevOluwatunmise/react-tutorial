@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Header = ({title}) => {
-// ******* Saving inline style invariable **********//
+// ******* Saving inline style in variable **********//
   // const headerStyle = {
   //   background: "royalblue",
   //   color: "goldenrod",
