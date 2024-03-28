@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -8,16 +8,44 @@ import Footer from "./Footer";
 import AddItem from "./AddItem";
 import SearchItem from "./SearchItem";
 
+
 function App() {
   // const name = "Hayzed";
 
-  const [items, setItems] = useState(
-    JSON.parse(localStorage.getItem("shoppinglist"))
-  );
+  // const [items, setItems] = useState(
+  //   JSON.parse(localStorage.getItem("shoppinglist")) || []);
+
+  ///////   API     //////
+
+  const API_URL = 'http://localhost:3500/itemss'
+
+  const [items, setItems] = useState([]);
+  const [fetchError, setFetchError] = useState(null)
+    
 
   const [newItem, setNewItem] = useState(""); // anytime we add new item, setNewItem will set the new value or item to the useState empty string
-
   const [search, setSearch] = useState("");
+
+  // useEffect(() => {
+  //   console.log("render")
+  // })
+
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const response = await fetch(API_URL);
+
+        if(!response.ok) throw Error('The data is not accessible !')
+        const listItem = await response.json();
+        console.log(listItem);
+        setItems(listItem)
+
+      }catch (err) {
+        console.log(err.stack)
+      }
+    }
+    (async () => await fetchItem())()
+ },[])
 
   //{
   //     id: 1,
@@ -41,16 +69,16 @@ function App() {
   //   },
   // ]);
 
-  const setAndSaveItem = (newItems) => {
-    setItems(newItems);
-    localStorage.setItem("shoppinglist", JSON.stringify(newItems));
-  };
+  // const setAndSaveItem = (newItems) => {
+  //   setItems(newItems);
+  //   localStorage.setItem("shoppinglist", JSON.stringify(newItems));
+  // };
 
   const addItem = (item) => {
     const id = items.length ? items[items.length - 1].id + 1 : 1;
     const myNewItem = { id, checked: false, item };
     const listItems = [...items, myNewItem]; // spreed the array and add new item
-    setAndSaveItem(listItems);
+    setItems(listItems);
     // setItems(listItems);
     // localStorage.setItem("shoppinglist", JSON.stringify(listItems));
   };
@@ -59,7 +87,7 @@ function App() {
     const listItems = items.map(
       (item) => (item.id === id ? { ...item, checked: !item.checked } : item) // read more abpout this line
     );
-    setAndSaveItem(listItems);
+    setItems(listItems);
     // setItems(listItems)   // it update it from false to true(from initial state{setItems} to useState {listItem})
     // localStorage.setItem("shoppinglist", JSON.stringify(listItems))
   };
@@ -87,15 +115,17 @@ function App() {
         setNewItem={setNewItem}
         handleSubmit={handleSubmit}
       />
-
+      <main className="student">
+        {fetchError && <p style={{color: "red"}}>{`Error${fetchError}`}</p>}
       <Content
         items={items.filter((item) =>
           item.item.toLowerCase().includes(search.toLocaleLowerCase())
         )}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
-        setAndSaveItem={setAndSaveItem}
+        // setAndSaveItem={setAndSaveItem}
       />
+      </main>
       <Footer length={items.length} />
     </div>
   );
