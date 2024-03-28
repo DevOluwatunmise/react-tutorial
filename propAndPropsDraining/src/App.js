@@ -17,7 +17,7 @@ function App() {
 
   ///////   API     //////
 
-  const API_URL = 'http://localhost:3500/itemss'
+  const API_URL = 'http://localhost:3500/items'
 
   const [items, setItems] = useState([]);
   const [fetchError, setFetchError] = useState(null)
@@ -25,6 +25,7 @@ function App() {
 
   const [newItem, setNewItem] = useState(""); // anytime we add new item, setNewItem will set the new value or item to the useState empty string
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
 
   // useEffect(() => {
   //   console.log("render")
@@ -35,15 +36,25 @@ function App() {
       try {
         const response = await fetch(API_URL);
 
-        if(!response.ok) throw Error('The data is not accessible !')
+        if(!response.ok) throw Error ('The data is not accessible !')
         const listItem = await response.json();
         console.log(listItem);
         setItems(listItem)
 
+        setFetchError(null)
       }catch (err) {
-        console.log(err.stack)
+        setFetchError(err.message)
+        // console.log(err.stack)
+      }finally{
+        setIsLoading(false)
       }
     }
+
+
+    setTimeout(() => {
+     ( async () => await fetchItem())()
+    }, 2000);
+
     (async () => await fetchItem())()
  },[])
 
@@ -116,15 +127,16 @@ function App() {
         handleSubmit={handleSubmit}
       />
       <main className="student">
-        {fetchError && <p style={{color: "red"}}>{`Error${fetchError}`}</p>}
-      <Content
+        {isLoading && <p>Loading item...</p>}
+        {fetchError && <p style={{color: "red"}}>{`Error: ${fetchError}`}</p>}
+        {!fetchError && !isLoading && <Content 
         items={items.filter((item) =>
           item.item.toLowerCase().includes(search.toLocaleLowerCase())
         )}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
         // setAndSaveItem={setAndSaveItem}
-      />
+      />}
       </main>
       <Footer length={items.length} />
     </div>
