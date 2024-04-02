@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import {form} from ;
+import Form from "./Form";
 
 
 function App() {
 
   const API_URL = 'https://jsonplaceholder.typicode.com/'
-  const [reqType, setreqType] = useState('users');
+  const [reqType, setReqType] = useState('users');
   const [item, setItem] = useState([])
 
   useEffect(() => {
@@ -16,6 +16,7 @@ function App() {
         const req = await response.json();
 
         console.log(req)
+        setItem(req)
 
       }catch(err) {
         console.log(err)
@@ -30,7 +31,7 @@ function App() {
 
   return (
     <div className='App'>
-      <form reqType={reqType}/>
+      <Form reqType={reqType} setReqType={setReqType}/>
      
     </div>
   );
