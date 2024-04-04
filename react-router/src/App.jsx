@@ -44,9 +44,11 @@ const App = () => {
   ])
   const [search, setSearch] = useState('')
   const [searchResult, setSearchResult] = useState([])
-  const handleDelete = () => {
+  const handleDelete = (id) => {
+    const postList = posts.filter(post => post.id !==id)
+    setPosts(postList)
 
-  }
+  } 
   return (
     <div className='App'>
       <Header title= "DLT Blogs"/>

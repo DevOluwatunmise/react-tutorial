@@ -6,6 +6,7 @@ const Home = ({posts}) => {
     <main className='Home'>
         {
             posts.length ? (
+              
                 <Feed posts={posts}/>
             ):(
                 <p style={{marginTop: "2rem"}}>
