@@ -8,6 +8,7 @@ import PostPage from './PostPage'
 import NewPost from './NewPost'
 import Missing from './Missing'
 import Footer from './Footer'
+import { format } from 'date-fns'
 
 const App = () => {
   const [posts, setPosts] = useState([
@@ -45,6 +46,22 @@ const App = () => {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [searchResult, setSearchResult] = useState([])
+  const [postTitle, setPostTitle] = useState('');
+  const [postBody, setPostBody] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const id = posts.length ? posts[posts.length -1].id + 1 : 1
+    const dateTime = format(new Date(), `MMM dd, yyy pp`)
+    const newPost = {id, title: postTitle, dateTime, body: postBody}
+    const allPosts = [...posts, newPost]
+
+    navigate('/')
+
+  }
+
+
   const handleDelete = (id) => {
     const postList = posts.filter(post => post.id !==id)
     setPosts(postList)
