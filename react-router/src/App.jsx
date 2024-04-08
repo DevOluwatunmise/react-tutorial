@@ -64,7 +64,10 @@ const App = () => {
 
   const handleDelete = (id) => {
     const postList = posts.filter(post => post.id !==id)
-    setPosts(postList)
+    setPosts(postList);    // it help us to update our posts
+    setPostTitle('');
+    setPostBody('');
+    
     navigate('/')
 
   } 
@@ -74,7 +77,14 @@ const App = () => {
       <Nav search={search} setSearch={setSearch} />
       <Routes>
         <Route path="/" element={<Home posts={posts}/>}/>      //** forward slash(/) means or specify home page **//
-        <Route path="/post" element={<NewPost/>} />
+        <Route path="/post" element={<NewPost 
+        handleSubmit={handleSubmit}
+        postTitle={postTitle}
+        setPostTitle={setPostTitle}
+        postBody={postBody}
+        setPostBody={setPostBody}
+        />} />
+        
         <Route path="/post/:id" element={<PostPage posts={posts} handleDelete={handleDelete}/>}/>
         <Route path="/about" element={<About/>} />
         <Route path="*" element={<Missing/>} />   //** the outsterisk will show you that the page can not be found **/
