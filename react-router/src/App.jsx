@@ -56,7 +56,7 @@ const App = () => {
     const dateTime = format(new Date(), `MMM dd, yyy pp`)
     const newPost = {id, title: postTitle, dateTime, body: postBody}
     const allPosts = [...posts, newPost]
-
+    setPosts(allPosts)    // this variable is declare to marge both the old and new posts
     navigate('/')
 
   }
@@ -84,7 +84,7 @@ const App = () => {
         postBody={postBody}
         setPostBody={setPostBody}
         />} />
-        
+
         <Route path="/post/:id" element={<PostPage posts={posts} handleDelete={handleDelete}/>}/>
         <Route path="/about" element={<About/>} />
         <Route path="*" element={<Missing/>} />   //** the outsterisk will show you that the page can not be found **/
